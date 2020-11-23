@@ -16,7 +16,7 @@
   <body>
     <ul id="messages"></ul>
     <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="message-input-box" autocomplete="off" /><button>Send</button>
     </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -28,11 +28,11 @@
         $('#messages').append($('<li>').text(msg));
       });
       $('form').submit(function(){
-        s2.emit('msg', $('#m').val(), function(data){
+        s2.emit('msg', $('#message-input-box').val(), function(data){
           $('#messages').append($('<li>').text('ACK CALLBACK: ' + data));
         });
-        socket.emit('notice', $('#m').val());
-        $('#m').val('');
+        socket.emit('notice', $('#message-input-box').val());
+        $('#message-input-box').val('');
         return false;
       });
     </script>
