@@ -16,13 +16,13 @@ func main() {
 		s.SetContext("")
 		fmt.Println("connected:", s.ID())
 		s.Join("bcast")
+		server.BroadcastToRoom("", "bcast", "reply", fmt.Sprintf("User %v has joined.", s.ID()))
 		return nil
 	})
 
 	server.OnEvent("/", "notice", func(s socketio.Conn, msg string) {
 		fmt.Println("notice:", msg)
 		server.BroadcastToRoom("", "bcast", "reply", "have "+msg)
-		// s.Emit("reply", "have "+msg)
 	})
 
 	server.OnEvent("/chat", "msg", func(s socketio.Conn, msg string) string {
