@@ -12,9 +12,9 @@ func main() {
 
 	server := socketio.NewServer(nil)
 
-	server.OnConnect("/socket.io/", func(so socketio.Conn) error {
-		so.SetContext("")
-		fmt.Println("connected:", so.ID())
+	server.OnConnect("/socket.io/", func(s socketio.Conn) error {
+		s.SetContext("")
+		fmt.Println("connected:", s.ID())
 		return nil
 	})
 
