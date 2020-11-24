@@ -43,6 +43,7 @@ func main() {
 
 	server.OnDisconnect("/", func(s socketio.Conn, reason string) {
 		fmt.Println("closed", reason)
+		server.BroadcastToRoom("", "bcast", "reply", fmt.Sprintf("User %v has disconnected.", s.ID()))
 	})
 
 	go server.Serve()
