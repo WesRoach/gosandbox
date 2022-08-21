@@ -14,12 +14,12 @@ func main() {
 	}
 
 	// Start Services
-	intoWash := make(chan uint64)
-	intoDry := make(chan uint64)
-	intoFold := make(chan uint64)
-	go ServiceWash(wardrobe, intoWash, intoDry)
-	go ServiceDry(wardrobe, intoDry, intoFold)
-	go ServiceFold(wardrobe, intoFold)
+	intoWash := make(chan *Garment)
+	intoDry := make(chan *Garment)
+	intoFold := make(chan *Garment)
+	go ServiceWash(intoWash, intoDry)
+	go ServiceDry(intoDry, intoFold)
+	go ServiceFold(intoFold)
 
 	// Print all garments in wardrobe
 	// for garmentId := range wardrobe.garment {
@@ -31,6 +31,7 @@ func main() {
 	for garmentId := range wardrobe.garment {
 		time.Sleep(time.Second * 1)
 		fmt.Printf("%v: ServiceWorker sending %+v into Wash.\n", time.Now(), garmentId)
-		intoWash <- garmentId
+		intoWash <- &wardrobe.garment[garmentId]
 	}
+
 }

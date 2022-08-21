@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func ServiceWash(wardrobe *Wardrobe, receiveChannel chan uint64, sendChannel chan uint64) {
+func ServiceWash(receiveChannel chan *Garment, sendChannel chan *Garment) {
 	for {
 		garment := <-receiveChannel
 		fmt.Printf("%v: ServiceWash received %+v.\n", time.Now(), garment)
@@ -15,7 +15,7 @@ func ServiceWash(wardrobe *Wardrobe, receiveChannel chan uint64, sendChannel cha
 	}
 }
 
-func ServiceDry(wardrobe *Wardrobe, receiveChannel chan uint64, sendChannel chan uint64) {
+func ServiceDry(receiveChannel chan *Garment, sendChannel chan *Garment) {
 	for {
 		garment := <-receiveChannel
 		fmt.Printf("%v: ServiceDry received %+v.\n", time.Now(), garment)
@@ -25,7 +25,7 @@ func ServiceDry(wardrobe *Wardrobe, receiveChannel chan uint64, sendChannel chan
 	}
 }
 
-func ServiceFold(wardrobe *Wardrobe, receiveChannel chan uint64) {
+func ServiceFold(receiveChannel chan *Garment) {
 	for {
 		garment := <-receiveChannel
 		fmt.Printf("%v: ServiceFold received %+v.\n", time.Now(), garment)
